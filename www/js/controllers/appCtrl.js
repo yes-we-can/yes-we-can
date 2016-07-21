@@ -13,7 +13,7 @@
 
             UserSrv.getUserData(phoneNumber).then(function(userData){
                 if(userData && userData.signUp){
-                    $state.go('app.addContacts');
+                    $state.go('app.report');//todo
                 }else{
                     $state.go('app.signup');
                 }
