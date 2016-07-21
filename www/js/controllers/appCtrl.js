@@ -11,9 +11,7 @@
             }
 
             UserSrv.getUserData(phoneNumber).then(function(userData){
-                var isUserExists = !!userData;
-
-                if(isUserExists){
+                if(userData && userData.signUp){
                     $state.go('app.addContacts');
                 }else{
                     $state.go('app.signup');
