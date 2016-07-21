@@ -1,8 +1,8 @@
 (function (angular) {
     'use strict';
 
-    angular.module('starter').factory('SignupSrv', ['$log', 'StorageSrv',
-        function ($log) {
+    angular.module('starter').factory('SignupSrv', ['$log', 'UserSrv', '$state',
+        function ($log, UserSrv, $state) {
 
             var SignupSrv = {};
 
@@ -10,26 +10,17 @@
 
             SignupSrv.createUser = function(data) {
                 // check if user exists first
-                SignupSrv.getUser(uid).then(function(user){
-                    if (angular.equals(user, {})){
-                        //var user = {};
-                        var uid = data.phoneNumber;
-                        user['/users/' + uid] = data;
-                        return firebase.database().ref().update(user);
-                    } else {
+                var uid = data.phoneNumber;
+                UserSrv.getUserData(uid).then(function(user){
+                    if (user){
                         // what to do if user already exists?
-                    }
-                });
-            };
-
-            SignupSrv.getUser = function(uid) {
-                var userRef = firebase.database().ref('users/' + uid);
-                return userRef.once('value').then(function(snapshot){
-                    var user = snapshot.val();
-                    if (user) {
-                        return user;
+                        $log.debug('user already exists');
+                        $state.go('app.addContacts');
                     } else {
-                        return {};
+                        var newUserData = {};
+                        var uid = data.phoneNumber;
+                        newUserData['/users/' + uid] = data;
+                        return firebase.database().ref().update(newUserData);
                     }
                 });
             };

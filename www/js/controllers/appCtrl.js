@@ -7,7 +7,7 @@
             var phoneNumber = localStorage.getItem('phoneNumber');
             if(phoneNumber === null){
                 alert('set phone number in local storage');
-                // localStorage.setItem('phoneNumber','0508350501')
+                localStorage.setItem('phoneNumber','0547329077')
             }
 
             UserSrv.getUserData(phoneNumber).then(function(userData){

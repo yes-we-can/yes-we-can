@@ -18,7 +18,6 @@
                 return _getUserRef(phoneNumber).once('value').then(function(userData){
                     return userData.val();
                 });
-
             };
 
             return UserSrv;
