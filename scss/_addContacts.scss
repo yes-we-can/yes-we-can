@@ -1,4 +1,33 @@
-.page-title {
-  color: red;
-  margin-top: 20px;
+.add-contacts-page {
+  text-align: center;
+  .page-title {
+    color: red;
+    font-size: 30px;
+    margin-top: 50px;
+  }
+  .add-student-container {
+    text-align: right;
+    width: 70%;
+    margin: 45px auto 0;
+    .add-member-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #0a9dc7;
+
+    }
+    .contact-phone-number{
+      border: 1px solid #f00;
+      display: inline;
+      margin-right: 45px;
+    }
+    .repeated-contact-phone-number {
+      margin: 10px 79px 0 0;
+      border: 1px solid #f00;
+      display: inline;
+    }
+    .submit-btn{
+
+    }
+  }
 }
