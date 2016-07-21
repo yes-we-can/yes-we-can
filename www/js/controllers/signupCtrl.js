@@ -3,11 +3,13 @@
 
     angular.module('starter.controllers').controller('SignupCtrl', ['$scope',
         function ($scope) {
-            console.log('dfsdfs!');
+
+          $scope.signupData = {};
 
           $scope.doSignup = function(){
-              
+            console.log('Doing signup', $scope.signupData);
           };
+
         }
     ]);
 })(angular);
