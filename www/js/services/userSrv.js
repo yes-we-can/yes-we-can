@@ -1,15 +1,27 @@
 (function (angular) {
-  'use strict';
+    'use strict';
 
-  angular.module('starter').factory('UserSrv', [
-    function () {
-      var UserSrv = {};
+    angular.module('starter').factory('UserSrv', [
+        function () {
+            var UserSrv = {};
 
-      UserSrv.isUserExists = function(phoneNumber){
-        
-      };
-      
-      return UserSrv;
-    }
-  ]);
+            function _getUserPath(phoneNumber){
+                return 'users/' + phoneNumber;
+            }
+
+            function _getUserRef(phoneNumber){
+                var userPath = _getUserPath(phoneNumber);
+                return firebase.database().ref(userPath);
+            }
+
+            UserSrv.getUserData = function(phoneNumber){
+                return _getUserRef(phoneNumber).once('value').then(function(userData){
+                    return userData.val();
+                });
+
+            };
+
+            return UserSrv;
+        }
+    ]);
 })(angular);
