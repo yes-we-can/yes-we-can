@@ -23,6 +23,12 @@ angular.module('starter', [
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
       }
+
+      // window.plugins.sim.getSimInfo(function(res){
+      //   alert(res);
+      // }, function(err){
+      //   alert(err);
+      // });
     });
   })
 
