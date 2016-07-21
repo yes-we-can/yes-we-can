@@ -1,11 +1,14 @@
 <ion-view class="add-contacts-page">
-  <div class="page-title">הוספת משתמשים</div>
+    <ion-content scroll="false">
+        <div class="page-title">הוספת משתמשים</div>
 
-  <div class="add-student-container">
+        <div class="add-student-container">
 
-    <!--<input class="contact-phone-number" type="number">-->
-    <button class="add-member-btn" ng-click="addNewContact()">+</button>
-    <!--<input ng-repeat="contact in contactsArr" class="repeated-contact-phone-number" type="number">-->
-    <button class="submit-btn">submit</button>
-  </div>
+            <!--<input class="contact-phone-number" type="number">-->
+            <div class="phone-numbers" ng-repeat="number in phoneNumberArr">{{number}}</div>
+            <button class="add-member-btn" ng-click="addNewContact()">+</button>
+            <!--<input ng-repeat="contact in contactsArr" class="repeated-contact-phone-number" type="number">-->
+            <button class="submit-btn">submit</button>
+        </div>
+    </ion-content>
 </ion-view>
