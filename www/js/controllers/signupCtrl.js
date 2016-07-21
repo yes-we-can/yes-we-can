@@ -7,7 +7,6 @@
           $scope.signupData = {};
 
           SignupSrv.getUser('45345345').then(function(user){
-            debugger;
           });
 
           $scope.doSignup = function(){
