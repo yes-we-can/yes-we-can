@@ -4,7 +4,12 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'])
+angular.module('starter', [
+  'ionic',
+  'ngCordova',
+  'ui.bootstrap',
+  'starter.controllers'
+])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -40,6 +45,16 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'])
                 }
             }
         })
+      .state('app.addContacts', {
+        url: '/addContacts',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/addContacts.html',
+            controller: 'AddContactsController'
+          }
+        }
+
+      })
         .state('app.photo', {
             url: '/photo',
             views: {
