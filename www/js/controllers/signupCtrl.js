@@ -1,13 +1,14 @@
 (function (angular) {
     'use strict';
 
-    angular.module('starter.controllers').controller('SignupCtrl', ['$scope',
-        function ($scope) {
+    angular.module('starter.controllers').controller('SignupCtrl', ['$scope', '$log', 'SignupSrv',
+        function ($scope, $log, SignupSrv) {
 
           $scope.signupData = {};
 
           $scope.doSignup = function(){
-            console.log('Doing signup', $scope.signupData);
+            $log.debug('Doing signup', $scope.signupData);
+            SignupSrv.createUser($scope.signupData);
           };
 
         }
