@@ -5,7 +5,7 @@
         function ($scope, $timeout, UserSrv) {
             $scope.contactsArr = [];
             $scope.phoneNumberArr = [];
-            var myPhoneNumber = UserSrv.getUsePhoneNumber();
+            var myPhoneNumber = UserSrv.getUserPhoneNumber();
             UserSrv.getUserData(myPhoneNumber).then(function (userData) {
 
                 if(angular.isDefined(userData.groups)){

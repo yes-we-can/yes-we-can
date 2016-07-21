@@ -21,7 +21,7 @@
 
             };
 
-            UserSrv.getUsePhoneNumber = function() {
+            UserSrv.getUserPhoneNumber = function() {
                 return localStorage.getItem('phoneNumber');
             };
 
