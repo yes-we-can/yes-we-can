@@ -2,18 +2,24 @@
     'use strict';
 
     angular.module('starter').factory('SignupSrv', ['$log', 'StorageSrv',
-        function ($log, StorageSrv) {
+        function ($log) {
 
             var SignupSrv = {};
 
             $log.debug('SignupSrv');
 
-
             SignupSrv.createUser = function(data) {
-                var user = {};
-                var uid = data.phoneNumber;
-                user['/users/' + uid] = data;
-                return firebase.database().ref().update(user);
+                // check if user exists first
+                SignupSrv.getUser(uid).then(function(user){
+                    if (angular.equals(user, {})){
+                        //var user = {};
+                        var uid = data.phoneNumber;
+                        user['/users/' + uid] = data;
+                        return firebase.database().ref().update(user);
+                    } else {
+                        // what to do if user already exists?
+                    }
+                });
             };
 
             SignupSrv.getUser = function(uid) {
