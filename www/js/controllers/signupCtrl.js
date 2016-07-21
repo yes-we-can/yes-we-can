@@ -6,7 +6,7 @@
             console.log('dfsdfs!');
 
           $scope.doSignup = function(){
-              debugger;
+              
           };
         }
     ]);
