@@ -5,6 +5,7 @@
         'UserSrv', '$state',
         function (UserSrv, $state) {
             var phoneNumber = localStorage.getItem('phoneNumber');
+
             if(phoneNumber === null){
                 alert('set phone number in local storage');
                 // localStorage.setItem('phoneNumber','0508350501')
