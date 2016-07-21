@@ -17,8 +17,22 @@
                 };
                 $log.debug('before firebase initialize');
                 firebase.initializeApp(config);
-                $log.debug('after firebase init');
+                return authenticate();
+                
+            }
 
+            var authenticate = function(){
+            	return firebase.auth().signInWithEmailAndPassword('assaf@zinkerz.com', 'yes-we-can').then(function(res){
+            		$log.debug('authenticated: ' + res);
+            		return res;
+            	}).catch(function(error) {
+			        // Handle Errors here
+			        var errorCode = error.code;
+			        var errorMessage = error.message;
+			        // [START_EXCLUDE]
+			        $log.error('failed to authenticate');
+			        return error.message;
+            	});
             }
 
             init();
