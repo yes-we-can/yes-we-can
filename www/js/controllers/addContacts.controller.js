@@ -1,10 +1,11 @@
 (function (angular) {
     'use strict';
 
-    angular.module('starter').controller('AddContactsController', ['$scope', '$timeout',
-        function ($scope, $timeout) {
+    angular.module('starter').controller('AddContactsController', ['$scope', '$timeout', 'UserSrv',
+        function ($scope, $timeout, UserSrv) {
             $scope.contactsArr = [];
             $scope.phoneNumberArr = [];
+            // UserSrv.getUserData()
             $scope.addNewContact = function () {
                 if (navigator.contacts) {
                     navigator.contacts.pickContact(function (contact) {

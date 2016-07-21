@@ -20,6 +20,10 @@
                 });
             };
 
+            UserSrv.getUsePhoneNumber = function() {
+                return localStorage.getItem('phoneNumber');
+            };
+
             return UserSrv;
         }
     ]);
