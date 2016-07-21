@@ -55,7 +55,12 @@ gulp.task('bower', function () {
   gulp.src('./www/index.html')
     .pipe(wiredep({
       directory: './www/lib',
-      exclude: [ /angular/],
+      exclude: [ 
+        'angular/',
+        'angular-animate',
+        'angular-sanitize',
+        'angular-ui-router'
+      ],
       overrides:{
         ionic:{
           main:[
