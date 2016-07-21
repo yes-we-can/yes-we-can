@@ -96,6 +96,27 @@ angular.module('starter', [
             controller: 'PlaylistCtrl'
           }
         }
+      })
+      .state('app.report', {
+      url: '/report',
+      views: {
+        'menuContent': {
+          template: '<ion-view view-title="Report"></ion-view>',
+          controller: 'ReportCtrl'
+        }
+      }
+    })
+      .state('app.report.before', {
+            templateUrl: 'templates/reportBefore.html',
+            controller: 'ReportBeforeCtrl'
+      })
+    .state('app.report.after', {
+          templateUrl: 'templates/reportAfter.html',
+          controller: 'ReportAfterCtrl'
+    })
+      .state('app.report.alarm', {
+            templateUrl: 'templates/reportAlarm.html',
+            controller: 'ReportAlarmCtrl'
       });
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/signup');
