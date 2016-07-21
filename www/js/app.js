@@ -66,22 +66,22 @@ angular.module('starter', [
       url: '/report',
       views: {
         'menuContent': {
-          template: '<ion-view view-title="Report"></ion-view>',
-          controller: 'ReportCtrl'
+          templateUrl: 'templates/report.html',
+          controller: 'ReportCtrl as vm'
         }
       }
     })
       .state('app.report.before', {
             templateUrl: 'templates/reportBefore.html',
-            controller: 'ReportBeforeCtrl'
+            controller: 'ReportBeforeCtrl as vm'
       })
     .state('app.report.after', {
           templateUrl: 'templates/reportAfter.html',
-          controller: 'ReportAfterCtrl'
+          controller: 'ReportAfterCtrl as vm'
     })
       .state('app.report.alarm', {
             templateUrl: 'templates/reportAlarm.html',
-            controller: 'ReportAlarmCtrl'
+            controller: 'ReportAlarmCtrl as vm'
       });
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/signup');
