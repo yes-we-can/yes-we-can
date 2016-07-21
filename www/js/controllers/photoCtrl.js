@@ -1,7 +1,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('starter.controllers').controller('PhotoCtrl', ['$scope', '$cordovaCamera', '$log',
+    angular.module('starter.controllers').controller('PhotoCtrl', ['$scope', '$cordovaCamera', '$log',  
         function ($scope, $cordovaCamera, $log) {
 
             $scope.takePhoto = function () {
