@@ -18,6 +18,7 @@
                 return _getUserRef(phoneNumber).once('value').then(function(userData){
                     return userData.val();
                 });
+
             };
 
             UserSrv.getUsePhoneNumber = function() {

@@ -22,7 +22,13 @@
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
     "cordova-plugin-camera",
-    "cordova-plugin-contacts"
+    "cordova-plugin-contacts",
+    "cordova-plugin-sim",
+    "cordova-sms-plugin",
+    {
+      "locator": "https://github.com/hazems/cordova-sms-plugin.git",
+      "id": "phonegap-plugin-push"
+    }
   ],
   "cordovaPlatforms": [
     "ios",

@@ -4,12 +4,12 @@
     angular.module('starter.controllers').controller('SignupCtrl', ['$scope', '$log', 'SignupSrv',
         function ($scope, $log, SignupSrv) {
 
-          $scope.signupData = {};
+            $scope.signupData = {};
 
-          $scope.doSignup = function(){
-            $log.debug('Doing signup', $scope.signupData);
-            SignupSrv.createUser($scope.signupData);
-          };
+            $scope.doSignup = function(){
+                $log.debug('Doing signup', $scope.signupData);
+                SignupSrv.createUser($scope.signupData);
+            };
 
         }
     ]);
