@@ -62,6 +62,27 @@ angular.module('starter', [
           }
         }
       })
+      .state('app.report', {
+      url: '/report',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/report.html',
+          controller: 'ReportCtrl as vm'
+        }
+      }
+    })
+      .state('app.report.before', {
+            templateUrl: 'templates/reportBefore.html',
+            controller: 'ReportBeforeCtrl as vm'
+      })
+    .state('app.report.after', {
+          templateUrl: 'templates/reportAfter.html',
+          controller: 'ReportAfterCtrl as vm'
+    })
+      .state('app.report.alarm', {
+            templateUrl: 'templates/reportAlarm.html',
+            controller: 'ReportAlarmCtrl as vm'
+      });
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app');
   });

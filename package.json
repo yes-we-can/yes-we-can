@@ -2,8 +2,7 @@
   "name": "yeswecan",
   "version": "1.1.1",
   "description": "yesWeCan: An Ionic project",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
@@ -22,7 +21,8 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
-    "cordova-plugin-camera"
+    "cordova-plugin-camera",
+    "cordova-plugin-contacts"
   ],
   "cordovaPlatforms": [
     "ios",
