@@ -11,17 +11,17 @@
                 SignupSrv.createUser($scope.signupData);
             };
 
-            // AlertSrv.setAlert('123',{
-            //     alertTimeCheck: '222222',
-            //     enabled: false,
-            //     startAlertTime: 44444
-            // }).then(function(){
-            //     AlertSrv.getAlerts().then(function(alerts){
-            //         $log.debug('alerts:' + alerts.length);
-            //     }).catch(function(err){
-            //         $log.debug('error in getAlerts, ' + err);
-            //     });
-            // });
+            AlertSrv.setAlert('123',{
+                alertTimeCheck: '4565464',
+                enabled: false,
+                startAlertTime: 5645464
+            }).then(function(){
+                AlertSrv.getAlerts().then(function(alerts){
+                    $log.debug('alerts:' + alerts.length);
+                }).catch(function(err){
+                    $log.debug('error in getAlerts, ' + err);
+                });
+            });
 
 
             
