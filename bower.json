@@ -1,12 +1,13 @@
 {
   "name": "HelloIonic",
   "private": "true",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "ionic": "driftyco/ionic-bower#1.3.1",
     "angular-bootstrap": "~2.0.0",
     "ngCordova": "~0.1.27-alpha",
-    "firebase": "^3.2.0"
+    "firebase": "^3.2.0",
+    "angular-svg-round-progressbar": "^0.4.6",
+    "Ionicons": "ionicons#^2.0.1"
   }
 }

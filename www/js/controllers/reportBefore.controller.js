@@ -2,10 +2,9 @@
     'use strict';
 
     angular.module('starter.controllers').controller('ReportBeforeCtrl', [
-        '$cordovaCamera', 'PhotoSrv',
-        function ($cordovaCamera, PhotoSrv) {
-            this.date = new Date();
-            this.alertTime = '9:00 - 6:00';
+        '$cordovaCamera', 'PhotoSrv', '$interval', 'AlertSrv',
+        function ($cordovaCamera, PhotoSrv, $interval, AlertSrv) {
+            var self = this;
 
             function _b64toFile(b64Data, fileName) {
                 var contentType = 'image/png';
@@ -35,63 +34,68 @@
                 return blob;
             }
 
+            function _AddPadding(num) {
+                var numStr = '' + num;
+                if(numStr.length === 1){
+                    numStr = '0' + numStr;
+                }
+                return numStr;
+            }
+
             this.takePhoto = function () {
-                var fileName = 'my_image' + Date.now() + '.png';
-                var path = 'images';
-                var options = {
-                    quality: 50,
-                    destinationType: Camera.DestinationType.DATA_URL,
-                    sourceType: Camera.PictureSourceType.CAMERA,
-                    allowEdit: true,
-                    encodingType: Camera.EncodingType.JPEG,
-                    targetWidth: 100,
-                    targetHeight: 100,
-                    popoverOptions: CameraPopoverOptions,
-                    saveToPhotoAlbum: false,
-                    correctOrientation: true
-                };
+                return UserSrv.getUserPhoneNumber().then(function(phoneNumber){
 
-                $cordovaCamera.getPicture(options).then(function (imageData) {
-                    var file = _b64toFile(imageData, fileName);
+                    var fileName = 'phoneNumber_' + Date.now() + '.png';
+                    var path = 'images/' + fileName;
+                    var options = {
+                        quality: 50,
+                        destinationType: Camera.DestinationType.DATA_URL,
+                        sourceType: Camera.PictureSourceType.CAMERA,
+                        allowEdit: true,
+                        encodingType: Camera.EncodingType.JPEG,
+                        targetWidth: 100,
+                        targetHeight: 100,
+                        popoverOptions: CameraPopoverOptions,
+                        saveToPhotoAlbum: false,
+                        correctOrientation: true
+                    };
 
-                    PhotoSrv.uploadImage(file, path);
-                }, function (err) {
-                    // error
+                    $cordovaCamera.getPicture(options).then(function (imageData) {
+                        var file = _b64toFile(imageData, fileName);
+
+                        PhotoSrv.uploadImage(file, path);
+                    }).then(function(){
+                        self.alert.imgUrl = path;
+                        AlertSrv.updateAlert(self.alert.alertKey,self.alert);
+                    });
                 });
             };
 
-            // reader.onload = function (e) {
-            //     $('.prw_img,#img_1').attr('src', e.target.result).width(112).height(112);
-            //     $('#img_1').css('display','inline');
-            // };
-            // reader.readAsDataURL(input.files[0])
+            $interval(function () {
+                self.currentTime += 1000;
+            }, 1000);
 
+            AlertSrv.getAlerts().then(function (alerts) {
+                var currDate = new Date();
+                var currMin = currDate.getHours() * 60 + currDate.getMinutes();
+                self.alert = alerts[0];
 
-            function handleFileSelect(file) {
-                debugger;
-                file.lastModifiedDate = new Date();
-                file.name = 'my_file.png';
+                var startTimeHours = parseInt(self.alert.startAlertTime / 60);
+                var startMin = parseInt(self.alert.startAlertTime % 60);
 
-                var metadata = {
-                    'contentType': file.type
-                };
-                storageRef.child('images/' + file.name).put(file, metadata).then(function (snapshot) {
-                    console.log('Uploaded', snapshot.totalBytes, 'bytes.');
-                    console.log(snapshot.metadata);
-                    var url = snapshot.metadata.downloadURLs[0];
-                    console.log('File available at', url);
-                    // [START_EXCLUDE]
-                    document.getElementById('linkbox').innerHTML = '<a href="' + url + '">Click For File</a>';
-                    // [END_EXCLUDE]
-                }).catch(function (error) {
-                    // [START onfailure]
-                    console.error('Upload failed:', error);
-                    // [END onfailure]
-                });
-                // [END oncomplete]
-            }
+                var endTimeHours = parseInt(self.alert.alertTimeCheck / 60);
+                var endMin = parseInt(self.alert.alertTimeCheck % 60);
 
-            // imgDomElement.addEventListener('load', handleFileSelect);
+                self.maxTime = endMin - startMin;
+                self.currentTime = currMin - startMin;
+
+                var startTimeHoursStr = _AddPadding(startTimeHours);
+                var startMinStr = _AddPadding(startMin);
+                var endTimeHoursStr = _AddPadding(endTimeHours);
+                var endMinSTr = _AddPadding(endMin);
+
+                self.alertTime = '' + endTimeHoursStr + ':' + endMinSTr + ' - ' + startTimeHoursStr + ':' + startMinStr;
+            });
         }
     ]);
 })(angular);

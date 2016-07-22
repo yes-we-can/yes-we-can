@@ -8,7 +8,8 @@ angular.module('starter', [
     'ionic',
     'ngCordova',
     'ui.bootstrap',
-    'starter.controllers'
+    'starter.controllers',
+    'angular-svg-round-progressbar'
 ])
 
 .run(function ($ionicPlatform, StorageSrv) {

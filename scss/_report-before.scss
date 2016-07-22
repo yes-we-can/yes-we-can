@@ -1,0 +1,66 @@
+.report-before{
+    .report-header{
+        padding-top: 30px;
+        color: #4f4d4d;
+
+        .top-text{
+            font-size: 18px;
+            text-align: right;
+            padding: {
+                right: 20px;
+            }
+        }
+
+        .item{
+            border-top-color: transparent;
+            font-size: 33px;
+            text-align: center;
+
+            span{
+                padding: {
+                    left: 90px;
+                }
+            }
+        }
+    }
+
+    .progress-section{
+        text-align: center;
+        padding: {
+            top: 50px;
+        }
+
+        .progress-wrapper{
+            position: relative;
+            display: inline-block;
+            height: 200px;
+
+            .button-wrapper{
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                bottom: 20px;
+                left: 20px;
+
+                button{
+                    border-color: transparent;
+                    border-radius: 50%;
+                    background: #40798f;
+                    height: 100%;
+                    width: 100%;
+                    padding-top: 18px;
+
+                    .text{
+                        font-size: 34px;
+                        color: white;
+                    }
+
+                    .ion-camera{
+                        color: #3f6b7d;
+                        font-size: 30px;
+                    }
+                }
+            }
+        }
+    }
+}
