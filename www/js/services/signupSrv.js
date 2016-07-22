@@ -8,25 +8,40 @@
 
             $log.debug('SignupSrv');
 
-            SignupSrv.createUser = function(data) {
+            SignupSrv.createUser = function (data) {
                 // check if user exists first
                 var uid = data.phoneNumber;
-                return UserSrv.getUserData(uid).then(function(user){
-                    if (user){
-                        // what to do if user already exists?
-                        $log.debug('user already exists');
-                        $state.go('app.addContacts');
+                return UserSrv.getUserData(uid).then(function (user) {
+                    if (user) {
+                        if (angular.isUndefined(user.signUp) || (user.signUp === false)) {
+                            user.signUp = true;
+                            user.username = angular.isUndefined(data.username) ? '' : data.username;
+                            var uidExists = data.phoneNumber;
+                            var newUserData = {};
+                            newUserData['/users/' + uidExists] = user;
+                            firebase.database().ref().update(newUserData).then(function (err) {
+                                if (err) {
+                                    alert('failed to signup');
+                                }
+                                else {
+
+                                    $state.go('app.addContacts');
+                                }
+                            })
+                        } else {
+                            $log.debug('user already exists');
+                            $state.go('app.addContacts');
+                        }
                     } else {
                         var newUserData = {};
-                        var uid = data.phoneNumber;
-                        data.signUp = true;
-                        newUserData['/users/' + uid] = data;
-                        return firebase.database().ref().update(newUserData).then(function(err){
-                            if (err){
+                        var uidNew = data.phoneNumber;
+                        newUserData['/users/' + uidNew] = data;
+                        return firebase.database().ref().update(newUserData).then(function (err) {
+                            if (err) {
                                 alert('failed to signup');
                             }
-                            else{
-                                localStorage.setItem('phoneNumber',data.phoneNumber)
+                            else {
+
                                 $state.go('app.addContacts');
                             }
                         });
