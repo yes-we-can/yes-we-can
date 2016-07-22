@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('starter.controllers').controller('ReportBeforeCtrl', [
-        '$cordovaCamera', 'PhotoSrv', '$interval', 'AlertSrv',
-        function ($cordovaCamera, PhotoSrv, $interval, AlertSrv) {
+        '$cordovaCamera', 'PhotoSrv', '$interval', 'AlertSrv', 'UserSrv', '$q',
+        function ($cordovaCamera, PhotoSrv, $interval, AlertSrv, UserSrv, $q) {
             var self = this;
 
             function _b64toFile(b64Data, fileName) {
@@ -36,16 +36,16 @@
 
             function _AddPadding(num) {
                 var numStr = '' + num;
-                if(numStr.length === 1){
+                if (numStr.length === 1) {
                     numStr = '0' + numStr;
                 }
                 return numStr;
             }
 
             this.takePhoto = function () {
-                return UserSrv.getUserPhoneNumber().then(function(phoneNumber){
+                return $q.when(UserSrv.getUserPhoneNumber()).then(function (phoneNumber) {
 
-                    var fileName = 'phoneNumber_' + Date.now() + '.png';
+                    var fileName = phoneNumber + '_' + Date.now() + '.png';
                     var path = 'images/' + fileName;
                     var options = {
                         quality: 50,
@@ -64,9 +64,9 @@
                         var file = _b64toFile(imageData, fileName);
 
                         PhotoSrv.uploadImage(file, path);
-                    }).then(function(){
+                    }).then(function () {
                         self.alert.imgUrl = path;
-                        AlertSrv.updateAlert(self.alert.alertKey,self.alert);
+                        AlertSrv.updateAlert(self.alert.alertKey, self.alert);
                     });
                 });
             };
