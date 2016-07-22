@@ -1,0 +1,20 @@
+.create-group-modal {
+    text-align: center;
+    .modal-title {
+        color: red;
+    }
+    .group-name {
+        .group-name-label {
+            direction: rtl;
+        }
+        .group-name-input {
+            border: 1px solid red;
+            display: inline-block;
+        }
+        .submit-btn {
+            background-color: red;
+        }
+    }
+}
+
+

@@ -19,6 +19,12 @@
                 });
             };
 
+            GroupSrv.setGroup = function(groupId, groupData){
+                var newGroupData = {};
+                newGroupData['/groups/' + groupId] = groupData;
+                return firebase.database().ref().update(newGroupData);
+            };
+
             return GroupSrv;
         }
     ]);
