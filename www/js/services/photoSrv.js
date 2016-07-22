@@ -1,19 +1,19 @@
 (function (angular) {
     'use strict';
 
-    angular.module('starter').factory('PhotoSrv', [
+    angular.module('starter').service('PhotoSrv', [
         function () {
-            var PhotoSrv = {};
-
             this.uploadImage = function(file, path){
                 var storageRef = firebase.storage().ref();
                 var metadata = {
                     'contentType': file.type
                 };
-                storageRef.child('images/' + file.name).put(file, metadata)
+                storageRef.child(path).put(file, metadata).then(function(){
+                    alert('success');
+                },function(err){
+                    alert('failure');
+                });
             };
-
-            return PhotoSrv;
         }
     ]);
 })(angular);

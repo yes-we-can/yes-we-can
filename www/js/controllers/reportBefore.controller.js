@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('starter.controllers').controller('ReportBeforeCtrl', [
-        '$cordovaCamera',
-        function ($cordovaCamera) {
+        '$cordovaCamera', 'PhotoSrv',
+        function ($cordovaCamera, PhotoSrv) {
             this.date = new Date();
             this.alertTime = '9:00 - 6:00';
 
@@ -30,13 +30,13 @@
                 var blob = new Blob(byteArrays, {
                     type: contentType
                 });
-                file.lastModifiedDate = new Date();
-                file.name = fileName;
+                blob.lastModifiedDate = new Date();
+                blob.name = fileName;
                 return blob;
             }
 
             this.takePhoto = function () {
-                var fileName = 'my_image' + Date.now();
+                var fileName = 'my_image' + Date.now() + '.png';
                 var path = 'images';
                 var options = {
                     quality: 50,
@@ -59,9 +59,6 @@
                     // error
                 });
             };
-
-            var imgDomElement = document.querySelector('img');
-            var reader = new FileReader();
 
             // reader.onload = function (e) {
             //     $('.prw_img,#img_1').attr('src', e.target.result).width(112).height(112);
