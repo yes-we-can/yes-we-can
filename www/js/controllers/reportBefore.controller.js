@@ -7,7 +7,37 @@
             this.date = new Date();
             this.alertTime = '9:00 - 6:00';
 
-            this.takePhoto = function(){
+            function _b64toFile(b64Data, fileName) {
+                var contentType = 'image/png';
+                var sliceSize = sliceSize || 512;
+
+                var byteCharacters = atob(b64Data);
+                var byteArrays = [];
+
+                for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                    var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+                    var byteNumbers = new Array(slice.length);
+                    for (var i = 0; i < slice.length; i++) {
+                        byteNumbers[i] = slice.charCodeAt(i);
+                    }
+
+                    var byteArray = new Uint8Array(byteNumbers);
+
+                    byteArrays.push(byteArray);
+                }
+
+                var blob = new Blob(byteArrays, {
+                    type: contentType
+                });
+                file.lastModifiedDate = new Date();
+                file.name = fileName;
+                return blob;
+            }
+
+            this.takePhoto = function () {
+                var fileName = 'my_image' + Date.now();
+                var path = 'images';
                 var options = {
                     quality: 50,
                     destinationType: Camera.DestinationType.DATA_URL,
@@ -18,41 +48,14 @@
                     targetHeight: 100,
                     popoverOptions: CameraPopoverOptions,
                     saveToPhotoAlbum: false,
-                    correctOrientation:true
+                    correctOrientation: true
                 };
 
-                $cordovaCamera.getPicture(options).then(function(imageData) {
-                    // var image = document.getElementById('myImage');
-                    // image.src = "data:image/jpeg;base64," + imageData;
-                    // var fileReader = new FileReader(imageData);
-                    // fileReader.onload(function(a,b,c){
-                    //     debugger;
-                    // })
-                    function b64toBlob(b64Data, contentType, sliceSize) {
-                        contentType = contentType || '';
-                        sliceSize = sliceSize || 512;
+                $cordovaCamera.getPicture(options).then(function (imageData) {
+                    var file = _b64toFile(imageData, fileName);
 
-                        var byteCharacters = atob(b64Data);
-                        var byteArrays = [];
-
-                        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-                            var slice = byteCharacters.slice(offset, offset + sliceSize);
-
-                            var byteNumbers = new Array(slice.length);
-                            for (var i = 0; i < slice.length; i++) {
-                                byteNumbers[i] = slice.charCodeAt(i);
-                            }
-
-                            var byteArray = new Uint8Array(byteNumbers);
-
-                            byteArrays.push(byteArray);
-                        }
-
-                        var blob = new Blob(byteArrays, {type: contentType});
-                        return blob;
-                    }
-                    handleFileSelect(b64toBlob(imageData, 'image/png'));
-                }, function(err) {
+                    PhotoSrv.uploadImage(file, path);
+                }, function (err) {
                     // error
                 });
             };
@@ -66,24 +69,24 @@
             // };
             // reader.readAsDataURL(input.files[0])
 
-            var storageRef = firebase.storage().ref();
+
             function handleFileSelect(file) {
                 debugger;
-                // var file = evt.target.files[0];
+                file.lastModifiedDate = new Date();
+                file.name = 'my_file.png';
+
                 var metadata = {
                     'contentType': file.type
                 };
-                // Push to child path.
-                // [START oncomplete]
-                storageRef.child('images/' + file.name).put(file, metadata).then(function(snapshot) {
+                storageRef.child('images/' + file.name).put(file, metadata).then(function (snapshot) {
                     console.log('Uploaded', snapshot.totalBytes, 'bytes.');
                     console.log(snapshot.metadata);
                     var url = snapshot.metadata.downloadURLs[0];
                     console.log('File available at', url);
                     // [START_EXCLUDE]
-                    document.getElementById('linkbox').innerHTML = '<a href="' +  url + '">Click For File</a>';
+                    document.getElementById('linkbox').innerHTML = '<a href="' + url + '">Click For File</a>';
                     // [END_EXCLUDE]
-                }).catch(function(error) {
+                }).catch(function (error) {
                     // [START onfailure]
                     console.error('Upload failed:', error);
                     // [END onfailure]
