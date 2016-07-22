@@ -1,17 +1,41 @@
 (function (angular) {
     'use strict';
 
-    angular.module('starter').controller('AddContactsController', ['$scope', '$timeout', 'UserSrv',
-        function ($scope, $timeout, UserSrv) {
+    angular.module('starter').controller('AddContactsController', ['$scope', '$timeout', 'UserSrv', 'GroupSrv', '$ionicModal',
+        function ($scope, $timeout, UserSrv, GroupSrv, $ionicModal) {
             $scope.contactsArr = [];
             $scope.phoneNumberArr = [];
+
+            $scope.createGroup = function (groupName) {
+                GroupSrv.createGroup({"groupName": groupName}).then(function (groupData) {
+                    $scope.groupData = groupData;
+                    $scope.modal.hide();
+                    debugger;
+                });
+            };
+
+            $ionicModal.fromTemplateUrl('templates/createNewGroupModal.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.modal = modal;
+            });
+
+            $scope.openModal = function () {
+                $scope.modal.show();
+            };
+
+            $scope.closeModal = function () {
+                $scope.modal.hide();
+            };
+
             var myPhoneNumber = UserSrv.getUserPhoneNumber();
             UserSrv.getUserData(myPhoneNumber).then(function (userData) {
 
-                if(angular.isDefined(userData.groups)){
+                if (angular.isDefined(userData.groups)) {
 
                 } else {
-
+                    $scope.modal.show();
                 }
                 $scope.addNewContact = function () {
                     if (navigator.contacts) {
