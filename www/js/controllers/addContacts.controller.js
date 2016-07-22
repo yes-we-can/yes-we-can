@@ -37,6 +37,10 @@
             };
 
             var myPhoneNumber = UserSrv.getUserPhoneNumber();
+            if (!myPhoneNumber) {
+                $state.go('app.signup');
+                return;
+            }
             UserSrv.getUserData(myPhoneNumber).then(function (userData) {
 
                 if (angular.isDefined(userData.groups)) {
@@ -47,7 +51,9 @@
                     GroupSrv.getGroup($scope.groupKey).then(function (groupDataObj) {
                         var groupData = groupDataObj.val();
                         $scope.groupData = groupData;
-                        $scope.phoneNumberArr = groupData.members;
+                        $timeout(function () {
+                            $scope.phoneNumberArr = groupData.members;
+                        })
                     });
                 } else {
                     $scope.modal.show();
@@ -60,28 +66,30 @@
                             $scope.phoneNumber = $scope.phoneNumber.replace(/([() -])+/g, '');
                             $scope.phoneNumber = $scope.phoneNumber.replace('+972', '0');
                             UserSrv.getUserData($scope.phoneNumber).then(function (userData) {
-                                if (angular.isDefined(userData)) {
-                                    if (angular.isDefined(userData.groups)) {
-                                        $scope.showAlert();
-                                    }
-                                    else {
+                                if ($scope.phoneNumberArr.indexOf($scope.phoneNumber) === -1) {
+                                    if (angular.isDefined(userData) && (userData != null)) {
+                                        if (angular.isDefined(userData.groups)) {
+                                            $scope.showAlert();
+                                        }
+                                        else {
+                                            $timeout(function () {
+                                                $scope.phoneNumberArr.push($scope.phoneNumber);
+                                            });
+                                            console.log('The following contact has been selected:' + JSON.stringify(contact));
+                                        }
+                                    } else {
+                                        var signUpData = {
+                                            username: '',
+                                            phoneNumber: $scope.phoneNumber,
+                                            signUp: false
+                                        };
+                                        SignupSrv.createUser(signUpData);
                                         $timeout(function () {
                                             $scope.phoneNumberArr.push($scope.phoneNumber);
                                         });
                                         console.log('The following contact has been selected:' + JSON.stringify(contact));
-                                    }
-                                } else {
-                                    var signUpData = {
-                                        username:'',
-                                        phoneNumber: $scope.phoneNumber,
-                                        signUp: false
-                                    };
-                                    SignupSrv.createUser(signUpData);
-                                    $timeout(function () {
-                                        $scope.phoneNumberArr.push($scope.phoneNumber);
-                                    });
-                                    console.log('The following contact has been selected:' + JSON.stringify(contact));
 
+                                    }
                                 }
                             })
                         }, function (err) {
@@ -92,7 +100,9 @@
                         $scope.phoneNumber = '(052) 662-0568';
                         $scope.phoneNumber = $scope.phoneNumber.replace(/([() -])+/g, '');
                         $scope.phoneNumber = $scope.phoneNumber.replace('+972', '0');
-                        $scope.phoneNumberArr.push($scope.phoneNumber);
+                        $timeout(function () {
+                            $scope.phoneNumberArr.push($scope.phoneNumber);
+                        });
                         console.log('The following contact has been selected:' + JSON.stringify($scope.phoneNumber));
                     }
                 };

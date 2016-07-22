@@ -15,12 +15,13 @@
             }
 
             UserSrv.setUserGroup = function (phoneNumber, groupKey) {
-                var userData = UserSrv.getUserData(phoneNumber);
-                var userDataObj = {};
-                userData.groups = {};
-                userData.groups[groupKey] = true;
-                userDataObj['/users/' + phoneNumber] = userData;
-                return firebase.database().ref().update(userDataObj);
+               return UserSrv.getUserData(phoneNumber).then(function (userData) {
+                    var userDataObj = {};
+                    userData.groups = {};
+                    userData.groups[groupKey] = true;
+                    userDataObj['/users/' + phoneNumber] = userData;
+                    return firebase.database().ref().update(userDataObj);
+                });
             };
 
             UserSrv.getUserData = function (phoneNumber) {

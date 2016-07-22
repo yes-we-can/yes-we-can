@@ -29,7 +29,6 @@
             GroupSrv.setGroup = function(groupId, groupData){
                 var newGroupData = {};
                 newGroupData['/groups/' + groupId] = groupData;
-                debugger;
                 return firebase.database().ref().update(newGroupData);
             };
 

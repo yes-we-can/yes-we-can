@@ -9,6 +9,7 @@
             $scope.doSignup = function(){
                 $log.debug('Doing signup', $scope.signupData);
                 $scope.signupData.signUp = true;
+                localStorage.setItem('phoneNumber', $scope.signupData.phoneNumber);
                 SignupSrv.createUser($scope.signupData);
             };
 
