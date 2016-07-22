@@ -74,8 +74,7 @@ angular.module('starter', [
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/report.html',
-                        controller: 'ReportCtrl',
-                        controllerAs: 'vm'
+                        controller: 'ReportCtrl as vm'
                     }
                 }
             })

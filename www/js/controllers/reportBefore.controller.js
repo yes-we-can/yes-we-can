@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('starter.controllers').controller('ReportBeforeCtrl', [
-        '$cordovaCamera', 'PhotoSrv', '$interval', 'AlertSrv', 'UserSrv', '$q',
-        function ($cordovaCamera, PhotoSrv, $interval, AlertSrv, UserSrv, $q) {
+        '$cordovaCamera', 'PhotoSrv', '$interval', 'AlertSrv', 'UserSrv', '$q', '$state',
+        function ($cordovaCamera, PhotoSrv, $interval, AlertSrv, UserSrv, $q, $state) {
             var self = this;
 
             function _b64toFile(b64Data, fileName) {
@@ -66,9 +66,15 @@
                         PhotoSrv.uploadImage(file, path);
                     }).then(function () {
                         self.alert.imgUrl = path;
-                        AlertSrv.updateAlert(self.alert.alertKey, self.alert);
+                        self.updateAlert();
+
+                        $state.go('^.after');
                     });
                 });
+            };
+
+            this.updateAlert = function(){
+                AlertSrv.updateAlert(self.alert.alertKey, self.alert);
             };
 
             $interval(function () {

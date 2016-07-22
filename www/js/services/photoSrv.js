@@ -14,6 +14,11 @@
                     alert('failure');
                 });
             };
+
+            this.getImage = function(path){
+                var storageRef = firebase.storage().ref().child(path);
+                return storageRef.getDownloadURL();
+            };
         }
     ]);
 })(angular);

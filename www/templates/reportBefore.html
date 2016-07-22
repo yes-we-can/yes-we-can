@@ -4,6 +4,7 @@
             <div class="top-text">{{vm.date|date}}ההתראה הקרובה ב </div>
             <div class="alert-section">
                 <ion-toggle ng-model="vm.alert.enabled"
+                            ng-change="vm.updateAlert()"
                             toggle-class="toggle-balanced">{{vm.alertTime}}
                 </ion-toggle>
             </div>
