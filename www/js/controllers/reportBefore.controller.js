@@ -63,11 +63,10 @@
                     $cordovaCamera.getPicture(options).then(function (imageData) {
                         var file = _b64toFile(imageData, fileName);
 
-                        PhotoSrv.uploadImage(file, path);
+                        return PhotoSrv.uploadImage(file, path);
                     }).then(function () {
                         self.alert.imgUrl = path;
                         self.updateAlert().then(function(){
-                            $timeout();
                             $state.go('^.after');
                         });
 
@@ -76,7 +75,7 @@
             };
 
             this.updateAlert = function(){
-                AlertSrv.updateAlert(self.alert.alertKey, self.alert);
+                return AlertSrv.updateAlert(self.alert.alertKey, self.alert);
             };
 
             $interval(function () {

@@ -8,11 +8,7 @@
                 var metadata = {
                     'contentType': file.type
                 };
-                storageRef.child(path).put(file, metadata).then(function(){
-                    alert('success');
-                },function(err){
-                    alert('failure');
-                });
+                return storageRef.child(path).put(file, metadata);
             };
 
             this.getImage = function(path){
