@@ -11,7 +11,7 @@ angular.module('starter', [
   'starter.controllers'
 ])
 
-.run(function ($ionicPlatform, StorageSrv) {
+.run(function ($ionicPlatform, StorageSrv, LocalNotificationSrv) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -23,6 +23,8 @@ angular.module('starter', [
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
       }
+
+      LocalNotificationSrv.setNotification();
 
       // window.plugins.sim.getSimInfo(function(res){
       //   alert(res);
