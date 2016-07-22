@@ -2,7 +2,8 @@
     'use strict';
 
     angular.module('starter.controllers').controller('ReportBeforeCtrl', [
-        function () {
+        '$cordovaCamera',
+        function ($cordovaCamera) {
             this.date = new Date();
             this.alertTime = '9:00 - 6:00';
 
