@@ -1,35 +1,32 @@
 .add-contacts-page {
-  text-align: center;
-  .page-title {
-    color: red;
-    font-size: 30px;
-    margin-top: 50px;
-  }
-  .add-student-container {
-    text-align: right;
-    width: 70%;
-    margin: 45px auto 0;
-    .add-member-btn {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background-color: #0a9dc7;
+    text-align: center;
+    .page-title {
+        color: red;
+        font-size: 30px;
+        margin-top: 50px;
+    }
+    .add-student-container {
+        width: 70%;
+        margin: 45px auto 0;
+        .phone-numbers {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        .add-member-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #0a9dc7;
 
+        }
+        .submit-btn {
+            background-color: red;
+            position: absolute;
+            right: 50%;
+            width: 260px;
+            bottom: 20px;
+            transform: translateX(50%);
+            -webkit-transform: translateX(50%);
+        }
     }
-    .contact-phone-number{
-      border: 1px solid #f00;
-      display: inline;
-      margin-right: 45px;
-    }
-    .repeated-contact-phone-number {
-      margin: 10px 79px 0 0;
-      border: 1px solid #f00;
-      display: inline;
-    }
-    .submit-btn{
-      background-color: red;
-      display: block;
-      margin: auto;
-    }
-  }
 }
