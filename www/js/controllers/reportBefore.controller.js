@@ -68,8 +68,6 @@
             var storageRef = firebase.storage().ref();
             function handleFileSelect(file) {
                 debugger;
-                evt.stopPropagation();
-                evt.preventDefault();
                 // var file = evt.target.files[0];
                 var metadata = {
                     'contentType': file.type
