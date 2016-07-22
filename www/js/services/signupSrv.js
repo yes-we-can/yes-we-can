@@ -19,7 +19,6 @@
                     } else {
                         var newUserData = {};
                         var uid = data.phoneNumber;
-                        data.signUp = true;
                         newUserData['/users/' + uid] = data;
                         return firebase.database().ref().update(newUserData).then(function(err){
                             if (err){

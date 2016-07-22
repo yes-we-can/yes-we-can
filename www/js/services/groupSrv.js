@@ -2,7 +2,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('starter').factory('GroupSrv', [ 
+    angular.module('starter').factory('GroupSrv', [
         function () {
             var GroupSrv = {};
 
@@ -29,6 +29,7 @@
             GroupSrv.setGroup = function(groupId, groupData){
                 var newGroupData = {};
                 newGroupData['/groups/' + groupId] = groupData;
+                debugger;
                 return firebase.database().ref().update(newGroupData);
             };
 
