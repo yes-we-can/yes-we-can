@@ -1,13 +1,11 @@
 <ion-view class="add-contacts-page">
     <ion-content scroll="false">
-        <div class="page-title">הוספת משתמשים</div>
+        <div class="page-title">ניהול קבוצה</div>
+        <div class="group-name">{{groupData.groupName}}</div>
 
         <div class="add-student-container">
-
-    <!--<input class="contact-phone-number" type="number">-->
-    <button class="add-member-btn" ng-click="addNewContact()">+</button>
-    <!--<input ng-repeat="contact in contactsArr" class="repeated-contact-phone-number" type="number">-->
-    <button class="button button-full button-positive submit-btn">אישור</button>
-    <!--<button class="submit-btn" ng-click="sendSms(0545886994,'assaf hello')">submit</button>-->
-  </div>
+            <div class="phone-numbers" ng-repeat="number in phoneNumberArr">{{number}}</div>
+            <button class="add-member-btn" ng-click="addNewContact()">+</button>
+            <button class="button button-full button-positive submit-btn" ng-click="updateGroup()">אישור</button>
+        </div>
 </ion-view>
