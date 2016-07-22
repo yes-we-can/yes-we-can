@@ -1,7 +1,8 @@
+
 (function (angular) {
     'use strict';
 
-    angular.module('starter').factory('GroupSrv', [
+    angular.module('starter').factory('GroupSrv', [ 
         function () {
             var GroupSrv = {};
 
