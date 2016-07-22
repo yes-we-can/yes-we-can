@@ -8,6 +8,7 @@
 
             $scope.doSignup = function(){
                 $log.debug('Doing signup', $scope.signupData);
+                $scope.signupData.signUp = true;
                 SignupSrv.createUser($scope.signupData);
             };
 
@@ -24,7 +25,7 @@
             // });
 
 
-            
+
 
         }
     ]);

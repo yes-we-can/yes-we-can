@@ -1,11 +1,10 @@
 (function (angular) {
     'use strict';
 
-    angular.module('starter').controller('AddContactsController', ['$scope', '$timeout', 'UserSrv', 'GroupSrv', '$ionicModal', '$state', '$q', '$ionicPopup',
-        function ($scope, $timeout, UserSrv, GroupSrv, $ionicModal, $state, $q, $ionicPopup) {
+    angular.module('starter').controller('AddContactsController', ['$scope', '$timeout', 'UserSrv', 'GroupSrv', '$ionicModal', '$state', '$q', '$ionicPopup', 'SignupSrv',
+        function ($scope, $timeout, UserSrv, GroupSrv, $ionicModal, $state, $q, $ionicPopup, SignupSrv) {
             $scope.contactsArr = [];
             $scope.phoneNumberArr = [];
-
 
             $scope.showAlert = function () {
                 var alertPopup = $ionicPopup.alert({
@@ -54,20 +53,35 @@
                     $scope.modal.show();
                 }
                 $scope.addNewContact = function () {
+                    console.log('addNewContact');
                     if (navigator.contacts) {
                         navigator.contacts.pickContact(function (contact) {
                             $scope.phoneNumber = contact && contact.phoneNumbers[0] && contact.phoneNumbers[0].value ? contact.phoneNumbers[0].value : undefined;
                             $scope.phoneNumber = $scope.phoneNumber.replace(/([() -])+/g, '');
                             $scope.phoneNumber = $scope.phoneNumber.replace('+972', '0');
                             UserSrv.getUserData($scope.phoneNumber).then(function (userData) {
-                                if (angular.isDefined(userData.groups)) {
-                                    $scope.showAlert();
-                                }
-                                else {
+                                if (angular.isDefined(userData)) {
+                                    if (angular.isDefined(userData.groups)) {
+                                        $scope.showAlert();
+                                    }
+                                    else {
+                                        $timeout(function () {
+                                            $scope.phoneNumberArr.push($scope.phoneNumber);
+                                        });
+                                        console.log('The following contact has been selected:' + JSON.stringify(contact));
+                                    }
+                                } else {
+                                    var signUpData = {
+                                        username:'',
+                                        phoneNumber: $scope.phoneNumber,
+                                        signUp: false
+                                    };
+                                    SignupSrv.createUser(signUpData);
                                     $timeout(function () {
                                         $scope.phoneNumberArr.push($scope.phoneNumber);
                                     });
                                     console.log('The following contact has been selected:' + JSON.stringify(contact));
+
                                 }
                             })
                         }, function (err) {
