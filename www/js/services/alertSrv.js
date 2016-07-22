@@ -37,10 +37,17 @@
 
 
             AlertSrv.setAlert = function(groupKey, alertData){
-            	var newAlertData={};
+            	var newAlertData={
+                    groupKey: groupKey
+                };
                 var newAlertKey = firebase.database().ref().child('groups').child(groupKey).child('alerts').push().key;
+                alertData.alertKey = newAlertKey;
                 newAlertData['/groups/' + groupKey + '/alerts/' + newAlertKey] = alertData;
                 return firebase.database().ref().update(newAlertData);
+            };
+
+            AlertSrv.updateAlert = function(alertPath, newAlertData){
+                return firebase.database().ref().child(alertPath).update(newAlertData);
             };
 
             return AlertSrv;
