@@ -1,7 +1,33 @@
-<ion-content>
-    <div class="report-header">
-        <div class="date">{{vm.date}}</div>
-        <div class="alert-time">{{vm.alertTime}}</div>
-    </div>
-</ion-content>
-
+<ion-view>
+    <ion-content class="report-before">
+        <div class="report-header">
+            <div class="top-text">{{vm.date|date}}ההתראה הקרובה ב </div>
+            <div class="alert-section">
+                <ion-toggle ng-model="vm.alert.enabled"
+                            ng-change="vm.updateAlert()"
+                            toggle-class="toggle-balanced">{{vm.alertTime}}
+                </ion-toggle>
+            </div>
+        </div>
+        <div class="progress-section">
+            <div class="progress-wrapper">
+                <round-progress
+                    max="vm.maxTime"
+                    current="vm.currentTime"
+                    color="#5d95ab"
+                    bgcolor="#e1e1e1"
+                    radius="100"
+                    stroke="10"
+                    rounded="true"
+                    clockwise="true">
+                </round-progress>
+                <div class="button-wrapper">
+                    <button ng-click="vm.takePhoto()">
+                        <span class="text">דווח</span>
+                        <div class="ion-camera"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
