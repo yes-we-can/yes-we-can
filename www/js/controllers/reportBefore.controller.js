@@ -21,12 +21,36 @@
                 };
 
                 $cordovaCamera.getPicture(options).then(function(imageData) {
-                    var image = document.getElementById('myImage');
-                    image.src = "data:image/jpeg;base64," + imageData;
-                    var fileReader = new FileReader(imageData);
-                    fileReader.onload(function(a,b,c){
-                        debugger;
-                    })
+                    // var image = document.getElementById('myImage');
+                    // image.src = "data:image/jpeg;base64," + imageData;
+                    // var fileReader = new FileReader(imageData);
+                    // fileReader.onload(function(a,b,c){
+                    //     debugger;
+                    // })
+                    function b64toBlob(b64Data, contentType, sliceSize) {
+                        contentType = contentType || '';
+                        sliceSize = sliceSize || 512;
+
+                        var byteCharacters = atob(b64Data);
+                        var byteArrays = [];
+
+                        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                            var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+                            var byteNumbers = new Array(slice.length);
+                            for (var i = 0; i < slice.length; i++) {
+                                byteNumbers[i] = slice.charCodeAt(i);
+                            }
+
+                            var byteArray = new Uint8Array(byteNumbers);
+
+                            byteArrays.push(byteArray);
+                        }
+
+                        var blob = new Blob(byteArrays, {type: contentType});
+                        return blob;
+                    }
+                    handleFileSelect(b64toBlob(imageData, 'image/png'));
                 }, function(err) {
                     // error
                 });
@@ -42,11 +66,11 @@
             // reader.readAsDataURL(input.files[0])
 
             var storageRef = firebase.storage().ref();
-            function handleFileSelect(evt) {
+            function handleFileSelect(file) {
                 debugger;
                 evt.stopPropagation();
                 evt.preventDefault();
-                var file = evt.target.files[0];
+                // var file = evt.target.files[0];
                 var metadata = {
                     'contentType': file.type
                 };
