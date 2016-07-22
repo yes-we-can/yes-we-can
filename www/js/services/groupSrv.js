@@ -10,7 +10,13 @@
                 // Get a key for a new Group.
                 var newGroupKey = firebase.database().ref().child('groups').push().key;
                 newGroupData['/groups/' + newGroupKey] = groupData;
-                return firebase.database().ref().update(newGroupData);
+                return firebase.database().ref().update(newGroupData).then(function (err) {
+                    if(err) {
+                        return null;
+                    } else {
+                        return newGroupKey;
+                    }
+                });
             };
 
             GroupSrv.getGroup = function(groupId){
