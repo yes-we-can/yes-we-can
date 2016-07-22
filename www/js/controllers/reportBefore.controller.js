@@ -66,9 +66,11 @@
                         PhotoSrv.uploadImage(file, path);
                     }).then(function () {
                         self.alert.imgUrl = path;
-                        self.updateAlert();
+                        self.updateAlert().then(function(){
+                            $timeout();
+                            $state.go('^.after');
+                        });
 
-                        $state.go('^.after');
                     });
                 });
             };
