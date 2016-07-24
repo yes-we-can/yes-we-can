@@ -8,7 +8,7 @@
 
             AlertSrv.getAlerts().then(function(alerts){
                 var alert = alerts[0];
-
+                 
                 if (angular.isDefined(alert) && alert.imgUrl) {
                     $state.go('.after');
                 }else{
