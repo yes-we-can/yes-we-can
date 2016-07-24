@@ -25,7 +25,7 @@ angular.module('starter', [
         StatusBar.styleDefault();
       }
 
-      LocalNotificationSrv.setNotification();
+      //LocalNotificationSrv.setNotification();
 
       // window.plugins.sim.getSimInfo(function(res){
       //   alert(res);
