@@ -24,7 +24,7 @@
                                     alert('failed to signup');
                                 }
                                 else {
-
+                                    //test
                                     $state.go('app.addContacts');
                                 }
                             })
